@@ -1,0 +1,25 @@
+{
+  "name": "koa2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-node": "nodemon ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Har-zheng/node-koa2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Har-zheng/node-koa2/issues"
+  },
+  "homepage": "https://github.com/Har-zheng/node-koa2#readme",
+  "dependencies": {
+    "concurrently": "^4.1.2",
+    "koa-logger": "^3.2.1",
+    "koa-session": "^5.12.3"
+  }
+}
