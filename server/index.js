@@ -1,22 +1,18 @@
-const koa = require('koa')
-const logger =require('koa-logger')
-const session = require('koa-session')
-const app = new koa()
+const Koa = require('koa')
+const app = new Koa()
+const { normal } = require('./tpl/normal')
 
-app.keys = ['Hi ZHZ']
-app.use(logger())
-app.use(session(app))
-
-app.use(ctx => {
-  if(ctx.path === '/'){
-    let n = ctx.session.views || 0
-    ctx.session.views = ++n;
-    ctx.body = n + ' views';
-  }else if(ctx.path == '/hi'){
-    ctx.body = 'HI ZHZ'
-  }else{
-     ctx.body = '404'
-  }
+app.use(async (ctx, next)=> {
+  ctx.type = 'text/html; charset = utf-8'
+  ctx.body = normal
+  // await next()
 })
-app.listen(5000)
-console.log('localhost:5000')
+// app.use(async (ctx, next)=> {
+//   ctx.body = '123'
+// })
+
+// const port = process.env.PORT || 8000
+
+app.listen(8000, () => {
+  //  console.log(`Server runing on port  ${port}`)
+})
