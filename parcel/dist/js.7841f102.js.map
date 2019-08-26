@@ -1,0 +1,1 @@
+{"version":3,"sources":["js/index.js"],"names":["changeTitle","window","$","html","setTimeout"],"mappings":";AAAA,SAASA,IACPC,OAAOC,EAAE,QAAQC,KAAK,aAExBC,WAAW,WAETJ,KACC","file":"js.7841f102.js","sourceRoot":"..","sourcesContent":["function changeTitle() {\r\n  window.$('#app').html('Parcel 打包')\r\n}\r\nsetTimeout(function () {\r\n\r\n  changeTitle()\r\n}, 2000)"]}
