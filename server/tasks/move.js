@@ -12,6 +12,7 @@ const {
 
     console.log(err)
   })
+  // 做测试
   child.on('exit', code => {
     if (invoked) return
     invoked = false
