@@ -47,5 +47,7 @@ var init = async () => {
   })
   await browser.close()
   console.log(result)
+  process.send({result})
+  process.exit(0)
 }
 init()
