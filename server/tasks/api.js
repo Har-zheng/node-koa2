@@ -7,11 +7,9 @@ const rp = require('request-promise-native')
 async function fetchMovie(item) {
   const url = `https://douban.uieee.com/v2/movie/subject/${item.doubanId}` 
   const res = await rp(url)
-
-
   return res
 }
-; (async () => {
+;(async () => {
   let movies = [
     {
       doubanId: 30254040,
