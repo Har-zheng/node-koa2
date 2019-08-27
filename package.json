@@ -33,10 +33,12 @@
     "koa-session": "^5.12.3",
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
+    "nanoid": "^2.0.4",
     "nodemon": "^1.19.1",
     "parcel-bundler": "^1.12.3",
     "pug": "^2.0.4",
     "puppeteer": "^1.19.0",
+    "qiniu": "^7.2.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   }

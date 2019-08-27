@@ -24,13 +24,17 @@ var init = async () => {
     // evaluate在页面里执行JS脚本
     var $ = window.$
     var it = $('.related-pic-video')
+    var posterDom = $('.nbgnbg')
     if (it && it.length >= 1) {
-
       var link = it.attr('href')
-      var cover = it.find('img').attr('src')
+      var cover = it.css("backgroundImage"); // 获取css的属性
+      let res = cover.match(/"(.*?)"/) // 截取背景图的 图片地址的正则  截取双引号 放在数组中
+      cover = res[1] // 直接取
+      var poster = posterDom.find('img').attr('src')
       return {
         link,
-        cover
+        cover,
+        poster
       }
     }
     return {}
@@ -55,6 +59,7 @@ var init = async () => {
   const data = {
     video,
     doubanId,
+    poster: result.poster,
     cover: result.cover
   }
   await browser.close()

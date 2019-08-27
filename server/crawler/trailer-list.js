@@ -31,9 +31,9 @@ var init = async () => {
       items.each((index, item) => {
         let it = $(item)
         let doubanId = it.find('div').data('id')
-        let title = it.find('.title').text()
-        let rate = Number(it.find('.rate').text())
-        console.log(it.find('img').attr('src'))
+        let title_rate = it.find('p').text().replace(/\s*/g, '')
+        let title = title_rate.substring(0, title_rate.length - 3)
+        let rate = Number(it.find('strong').text())
         let poster = it.find('img').attr('src')
         links.push({
           doubanId,
@@ -47,7 +47,9 @@ var init = async () => {
   })
   await browser.close()
   console.log(result)
-  process.send({result})
+  process.send({
+    result
+  })
   process.exit(0)
 }
 init()
