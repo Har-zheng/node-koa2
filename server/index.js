@@ -1,11 +1,15 @@
 const Koa = require('koa')
+const mongoose = require('mongoose')
 const app = new Koa()
 const views = require('koa-views')
 const { resolve } = require('path')
-const {connect} = require('./database/init')
+const {connect, initSchemas} = require('./database/init')
 
 ;(async ()=> {
   await connect()
+  initSchemas()
+  // require('./tasks/move')
+  require('./tasks/api')
 })()
 
 app.use(views(resolve(__dirname, './views'), {

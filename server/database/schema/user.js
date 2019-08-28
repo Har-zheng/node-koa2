@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const Mixed  = Schema.Types.Mixed
 const SALT_WORK_FATOR = 10
-const MAX_LOGIN_ATTEMPTS = 5
+const MAX_LOGIN_ATTEMPTS = 5 // 设置最大登录次数
 const LOCK_TIME = 2 * 60 * 60 * 1000
 
 const userSchema = new Schema({
@@ -37,7 +37,7 @@ const userSchema = new Schema({
     }
   }
 })
-userSchema.pre('save', next => {
+userSchema.pre('save', function (next) {
   if (this.isNew) {
     this.meta.createdAt = this.meta.updatedAt = Date.now()
   } else {
@@ -45,7 +45,7 @@ userSchema.pre('save', next => {
   }
   next()
 })
-userSchema.pre('save', next => {
+userSchema.pre('save', function (next) {
   if (userSchema.isModified('password')) return next()
 
   bcrypt.genSalt(SALT_WORK_FATOR, (err, salt) => {

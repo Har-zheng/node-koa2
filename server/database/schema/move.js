@@ -1,45 +1,52 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const Mixed = Schema.Types.Mixed
+const { ObjectId , Mixed } = Schema.Types
 
 const movieschema = new Schema({
   doubanId: {
-    required:true,
+    unique: true,
     type: String
   },
+
+  category: [{
+    type: ObjectId,
+    ref: 'Category'
+  }],
+
   rate: Number,
   title: String,
   summary: String,
   video: String,
-  cover: String,
   poster: String,
+  cover: String,
+  subtype: String,
 
-  videokey: String,
-  coverkey: String,
-  posterkey: String,
-
-  rawTitle: String,
-  MovieTypes: [String], //数组类型  里面的每一个值都是字符串类型
-  pubdate: Mixed, // 可以是单一的字符串值 也可以是数组
+  rawTile: String,
+  originalTitle: String,
+  year: String,
+  genres: [String],
+  countries: [String],
+  movieTypes: [String],
+  pubdate: Mixed,  // 值可能是单一值，也有可能是数据
   year: Number,
 
   tags: [String],
 
   meta: {
     createdAt: {
-      type:Date,
-      default:Date.now()
+      type: Date,
+      default: Date.now()
     },
     updatedAt: {
       type: Date,
       default: Date.now()
     }
-   }
-}) 
-movieschema.pre('save' ,next => {
-  if(this.isNew){
+  }
+})
+movieschema.pre('save',function (next) {
+  if (this.isNew) {
     this.meta.createdAt = this.meta.updatedAt = Date.now()
-  }else{
+  } else {
     this.meta.updatedAt = Date.now()
   }
   next()
