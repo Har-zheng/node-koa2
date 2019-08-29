@@ -2,7 +2,9 @@
 
 const rp = require('request-promise-native')
 const mongoose = require('mongoose')
+
 const Movie = mongoose.model('Movie')
+
 const Category = mongoose.model('Category')
 
 async function fetchMovie(item) {
