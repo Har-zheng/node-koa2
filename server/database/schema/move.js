@@ -21,6 +21,11 @@ const movieschema = new Schema({
   cover: String,
   subtype: String,
 
+  videoKey: String,
+  coverKey: String,
+  posterKey: String,
+
+
   rawTile: String,
   originalTitle: String,
   year: String,

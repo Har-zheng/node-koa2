@@ -1,8 +1,10 @@
 const cp = require('child_process')
-const { resolve } = require('path')
+const {
+  resolve
+} = require('path')
 const mongoose = require('mongoose')
-const Movie = mongoose.model('Movie')
-;(async () => {
+const Movie = mongoose.model('Movie');
+(async () => {
   const script = resolve(__dirname, '../crawler/trailer-list.js')
   const child = cp.fork(script, [])
   let invoked = false
@@ -17,15 +19,18 @@ const Movie = mongoose.model('Movie')
     invoked = true
     let err = code === 0 ? null : new Error('exit code' + code)
   })
-  child.on('message', data=> {
+  child.on('message', data => {
     let result = data.result
     result.forEach(async item => {
-      let movie = await Movie.findOne({
-        doubanId: item.doubanId
-      })
-      if(!movie) {
-        movie = new Movie(item)
-        await movie.save()
+      if (item.doubanId !== undefined) {
+
+        let movie = await Movie.findOne({
+          doubanId: item.doubanId
+        })
+        if (!movie) {
+          movie = new Movie(item)
+          await movie.save()
+        }
       }
     });
   })

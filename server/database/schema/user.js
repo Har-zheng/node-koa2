@@ -4,6 +4,7 @@ const Mixed  = Schema.Types.Mixed
 const SALT_WORK_FATOR = 10
 const MAX_LOGIN_ATTEMPTS = 5 // 设置最大登录次数
 const LOCK_TIME = 2 * 60 * 60 * 1000
+const bcrypt = require('bcrypt')
 
 const userSchema = new Schema({
   username: {
@@ -46,23 +47,24 @@ userSchema.pre('save', function (next) {
   next()
 })
 userSchema.pre('save', function (next) {
-  if (userSchema.isModified('password')) return next()
+  // isModified
+  if (!this.isModified('password')) return next()
 
   bcrypt.genSalt(SALT_WORK_FATOR, (err, salt) => {
     if (err) return next(err)
-    bcrypt.hash(user.password, salt, (err, hash) => {
+    bcrypt.hash(this.password, salt, (err, hash) => {
       if (err) return next(err)
       this.password = hash
       next()
     })
   })
-
-  next()
+  // 错误  之在这里直接 next()了
 })
 userSchema.virtual('isLocked').get(() => { // 虚拟字段  不会存数据库中
   return !(this.lockUntil && this.lockUntil > Date.now()) // 登录时间是否大于 当前时间
 }) 
 userSchema.methods = {
+   // _password为网站提交来的明文password，第二个就是数据库中加盐后的hash密码
   comparePassworld: (_passworld, passworld) => {
     return new Promise((reslove, reject) => {
       bcrypt.compare(_passworld, passworld, (err, isMatch) => {
@@ -76,7 +78,7 @@ userSchema.methods = {
       // 设置的时间  是否大于当前时间
       if (this.lockUntil && this.lockUntil < Date.now()) {
         this.update({
-          $set: {
+          $set: { // 原来mongoose的$set+$unset就是个原子操作
             loginAttempts: 1
           },
           $unset: {
