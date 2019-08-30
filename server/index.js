@@ -14,7 +14,7 @@ const {connect, initSchemas,initAdmin } = require('./database/init')
   // require('./tasks/move')
   // require('./tasks/api')
   // require('./tasks/trailer')
-  // require('./tasks/qiniu')
+  require('./tasks/qiniu')
 })()
 const app = new Koa()
 

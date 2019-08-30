@@ -1,30 +1,36 @@
+import { addMinutes } from 'date-fns';
+import { log } from 'util';
+
 const Router = require('koa-router')
 const mongoose = require('mongoose')
-
-
 const router = new Router()
-// 多个方法 支持链式操作
-router.get('/movies/all', async (ctx, next) => {
-  const Movie = mongoose.model('Movie');
-  let movieList = await Movie.find({}).sort({
-    'meta.createdAt': -1
-  })
-  ctx.body = {
-    movieList
-  }
-  next()
-})
 
-router.get('/movies/:id', async (ctx, next) => {
-  const Movie = mongoose.model('Movie');
-  let movie = await Movie.findOne({
-    doubanId: ctx.params.id
-  })
-  // 26909790
-  ctx.body = {
-    movie
+@controller('/api/v0/movies')
+export class movieController {
+  @get('/')
+  @login
+  @addMinutes(['development'])
+  @log
+  async getMovies(ctx, next) {
+    const Movie = mongoose.model('Movie');
+    let movieList = await Movie.find({}).sort({
+      'meta.createdAt': -1
+    })
+    ctx.body = {
+      movieList
+    }
   }
-  next()
-})
+  @get('/:id')
+  async getMoviesDatel(ctx, next) {
+    const Movie = mongoose.model('Movie');
+    let movie = await Movie.findOne({
+      doubanId: ctx.params.id
+    })
+    // 26909790
+    ctx.body = {
+      movie
+    }
+  }
+}
 
 module.exports = router
