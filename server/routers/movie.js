@@ -6,7 +6,9 @@ const {
   put
 } = require('../lib/decorator')
 const {
-  getAllMovies
+  getAllMovies,
+  getMovieDetail,
+  getRelatvieMovies
 } = require('../service/movie')
 
 @controller('/api/v0/movies')
