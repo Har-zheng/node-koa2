@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 
 const router = new Router()
-
+// 多个方法 支持链式操作
 router.get('/movies/all', async (ctx, next) => {
   const Movie = mongoose.model('Movie');
   let movieList = await Movie.find({}).sort({
