@@ -1,0 +1,1 @@
+{"version":3,"sources":["assets\\common.sass"],"names":[],"mappings":"AAAA,KACE,UAAW,CACX,WAAY,CACZ,eAAgB","file":"src.e79ae2bd.css","sourceRoot":"..\\src","sourcesContent":["#app {\n  width: 100%;\n  height: 100%;\n  overflow: hidden; }\n"]}

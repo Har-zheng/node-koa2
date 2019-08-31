@@ -5,7 +5,7 @@ const { resolve } = require('path')
 const { connect, initSchemas, initAdmin } = require('./database/init')
 
 const R = require('ramda')
-const MIDDLEWARES = ['router']
+const MIDDLEWARES = ['parcel','router']
 
   ; (async () => {
     await connect()
