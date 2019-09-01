@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "parcel build src/index.html --no-cache -d dist --public-url /",
     "watch-node": "nodemon  ./server/index.js",
-    "start": "--no-cache NODE_ENV=development nodemon ./start.js"
+    "start": "del dist && del .cache && set NODE_ENV=development && nodemon ./start.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Har-zheng/node-koa2#readme",
   "dependencies": {
+    "antd": "^3.0.0",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",
@@ -46,8 +47,9 @@
     "puppeteer": "^1.19.0",
     "qiniu": "^7.2.2",
     "ramda": "^0.26.1",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.1",

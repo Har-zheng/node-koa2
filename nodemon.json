@@ -1,5 +1,5 @@
 {
-  "restartable": "ts",
+    "restartable": "ts",
   "ignore": [
     ".git",
     "node_modules/**/node_modules"

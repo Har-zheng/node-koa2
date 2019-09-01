@@ -7,9 +7,11 @@ const Bundler = require('parcel-bundler')
 const views = require('koa-views')
 
 const serve = require('koa-static')
-const { reslove } = require('path')
 
-const r = path => reslove(__dirname, path)
+const { resolve } =  require('path')
+
+
+const r = path => resolve(__dirname, path)
 
 const bundler = new Bundler(r('../../../src/index.html'), {
   publicUrl: '/',
