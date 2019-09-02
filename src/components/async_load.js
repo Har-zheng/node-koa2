@@ -1,31 +1,39 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react' 
+
+//实现每个组件的动态加载,其结果是返回一个加载好的组件类
 export default (loadComponent, placeholder = '正在加载中') => {
-  return class AsyncComponent extends Component{
-    unmoount = false
-    constructor(){
-      super()
-      this.state = {
-        Child: null
+    return class AsyncComponent extends Component {
+      unmount = false
+  
+      constructor () {
+        super()
+        this.state = {
+          Child: null
+        }
+      }
+  
+      componentWillUnmount () {
+        this.unmount = true
+      }
+  
+      async componentDidMount () {
+        const { default: Child } = await loadComponent()
+  
+        if (this.unmount) return
+  
+        this.setState({
+          Child
+        })
+      }
+  
+      render () {
+        const { Child } = this.state
+  
+        return (
+          Child
+            ? <Child {...this.props} />
+            : placeholder
+        )
       }
     }
-    componentWillMount() {
-      this.unmoount = true
-    }
-    async componentDidMount() {
-      const { default: Child } = await loadComponent()
-
-      if(this.unmoount) return
-      this.setState({
-        Child
-      })
-    }
-    render () {
-      const { Child } = this.state
-      return (
-        Child
-        ? <Child {...this.props}/>
-        : placeholder
-      )
-    }
   }
-} 

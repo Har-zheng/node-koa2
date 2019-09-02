@@ -29910,7 +29910,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _createBrowserHistory = _interopRequireDefault(require("history").createbrowserhistory);
+var _createBrowserHistory = _interopRequireDefault(require("history/createBrowserHistory"));
 
 var _Router = _interopRequireDefault(require("./Router"));
 
@@ -33334,85 +33334,7 @@ var _matchPath2 = _interopRequireDefault(require("./matchPath"));
 var _withRouter2 = _interopRequireDefault(require("./withRouter"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./BrowserRouter":"../node_modules/react-router-dom/es/BrowserRouter.js","./HashRouter":"../node_modules/react-router-dom/es/HashRouter.js","./Link":"../node_modules/react-router-dom/es/Link.js","./MemoryRouter":"../node_modules/react-router-dom/es/MemoryRouter.js","./NavLink":"../node_modules/react-router-dom/es/NavLink.js","./Prompt":"../node_modules/react-router-dom/es/Prompt.js","./Redirect":"../node_modules/react-router-dom/es/Redirect.js","./Route":"../node_modules/react-router-dom/es/Route.js","./Router":"../node_modules/react-router-dom/es/Router.js","./StaticRouter":"../node_modules/react-router-dom/es/StaticRouter.js","./Switch":"../node_modules/react-router-dom/es/Switch.js","./matchPath":"../node_modules/react-router-dom/es/matchPath.js","./withRouter":"../node_modules/react-router-dom/es/withRouter.js"}],"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-
-  newLink.onload = function () {
-    link.remove();
-  };
-
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/antd/dist/antd.css":[function(require,module,exports) {
-
-        var reloadCSS = require('_css_loader');
-        module.hot.dispose(reloadCSS);
-        module.hot.accept(reloadCSS);
-      
-},{"_css_loader":"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/css-loader.js"}],"assets/common.sass":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/babel-runtime/node_modules/core-js/library/modules/es6.object.to-string.js":[function(require,module,exports) {
+},{"./BrowserRouter":"../node_modules/react-router-dom/es/BrowserRouter.js","./HashRouter":"../node_modules/react-router-dom/es/HashRouter.js","./Link":"../node_modules/react-router-dom/es/Link.js","./MemoryRouter":"../node_modules/react-router-dom/es/MemoryRouter.js","./NavLink":"../node_modules/react-router-dom/es/NavLink.js","./Prompt":"../node_modules/react-router-dom/es/Prompt.js","./Redirect":"../node_modules/react-router-dom/es/Redirect.js","./Route":"../node_modules/react-router-dom/es/Route.js","./Router":"../node_modules/react-router-dom/es/Router.js","./StaticRouter":"../node_modules/react-router-dom/es/StaticRouter.js","./Switch":"../node_modules/react-router-dom/es/Switch.js","./matchPath":"../node_modules/react-router-dom/es/matchPath.js","./withRouter":"../node_modules/react-router-dom/es/withRouter.js"}],"../node_modules/babel-runtime/node_modules/core-js/library/modules/es6.object.to-string.js":[function(require,module,exports) {
 
 },{}],"../node_modules/babel-runtime/node_modules/core-js/library/modules/_to-integer.js":[function(require,module,exports) {
 // 7.1.4 ToInteger
@@ -34861,6 +34783,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+//实现每个组件的动态加载,其结果是返回一个加载好的组件类
 var _default = function _default(loadComponent) {
   var placeholder = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '正在加载中';
   return (
@@ -34874,7 +34797,7 @@ var _default = function _default(loadComponent) {
         _classCallCheck(this, AsyncComponent);
 
         _this2 = _possibleConstructorReturn(this, _getPrototypeOf(AsyncComponent).call(this));
-        _this2.unmoount = false;
+        _this2.unmount = false;
         _this2.state = {
           Child: null
         };
@@ -34882,9 +34805,9 @@ var _default = function _default(loadComponent) {
       }
 
       _createClass(AsyncComponent, [{
-        key: "componentWillMount",
-        value: function componentWillMount() {
-          this.unmoount = true;
+        key: "componentWillUnmount",
+        value: function componentWillUnmount() {
+          this.unmount = true;
         }
       }, {
         key: "componentDidMount",
@@ -34907,7 +34830,7 @@ var _default = function _default(loadComponent) {
                     _ref = _context.sent;
                     Child = _ref.default;
 
-                    if (!_this.unmoount) {
+                    if (!_this.unmount) {
                       _context.next = 6;
                       break;
                     }
@@ -34941,7 +34864,39 @@ var _default = function _default(loadComponent) {
 };
 
 exports.default = _default;
-},{"babel-runtime/helpers/asyncToGenerator":"../node_modules/babel-runtime/helpers/asyncToGenerator.js","react":"../node_modules/react/index.js"}],"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/bundle-loader.js":[function(require,module,exports) {
+},{"babel-runtime/helpers/asyncToGenerator":"../node_modules/babel-runtime/helpers/asyncToGenerator.js","react":"../node_modules/react/index.js"}],"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/bundle-loader.js":[function(require,module,exports) {
 var getBundleURL = require('./bundle-url').getBundleURL;
 
 function loadBundlesLazy(bundles) {
@@ -35041,7 +34996,7 @@ var _default = [{
   icon: 'home',
   path: '/',
   component: (0, _async_load.default)(function () {
-    return require("_bundle_loader")(require.resolve('./views/home/index'));
+    return require("_bundle_loader")(require.resolve('./views/home'));
   })
 }, {
   name: '详情页',
@@ -35052,7 +35007,53 @@ var _default = [{
   })
 }];
 exports.default = _default;
-},{"./components/async_load":"components/async_load.js","_bundle_loader":"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/bundle-loader.js","./views/home/index":[["home.2b845b66.js","views/home/index.js"],"home.2b845b66.js.map","views/home/index.js"],"./views/movie/detail":[["detail.090f33a8.js","views/movie/detail.js"],"detail.090f33a8.js.map","views/movie/detail.js"]}],"app.js":[function(require,module,exports) {
+},{"./components/async_load":"components/async_load.js","_bundle_loader":"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/bundle-loader.js","./views/home":[["home.2b845b66.js","views/home/index.js"],"home.2b845b66.js.map","views/home/index.js"],"./views/movie/detail":[["detail.090f33a8.js","views/movie/detail.js"],"detail.090f33a8.js.map","views/movie/detail.js"]}],"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/antd/dist/antd.css":[function(require,module,exports) {
+
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+},{"_css_loader":"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/css-loader.js"}],"assets/common.sass":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/css-loader.js"}],"app.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35064,14 +35065,15 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
+var _routes = _interopRequireDefault(require("./routes"));
+
 require("antd/dist/antd.css");
 
 require("./assets/common.sass");
 
-var _routes = _interopRequireDefault(require("./routes"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//载入路由配置数组文件
 var _default = function _default() {
   return _react.default.createElement(_reactRouterDom.Switch, null, _routes.default.map(function (_ref) {
     var name = _ref.name,
@@ -35079,8 +35081,7 @@ var _default = function _default() {
         _ref$exact = _ref.exact,
         exact = _ref$exact === void 0 ? true : _ref$exact,
         component = _ref.component;
-
-    _react.default.createElement(_reactRouterDom.Route, {
+    return _react.default.createElement(_reactRouterDom.Route, {
       path: path,
       exact: exact,
       component: component,
@@ -35090,7 +35091,7 @@ var _default = function _default() {
 };
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","antd/dist/antd.css":"../node_modules/antd/dist/antd.css","./assets/common.sass":"assets/common.sass","./routes":"routes.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","./routes":"routes.js","antd/dist/antd.css":"../node_modules/antd/dist/antd.css","./assets/common.sass":"assets/common.sass"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -35099,13 +35100,14 @@ var _reactDom = require("react-dom");
 
 var _reactRouterDom = require("react-router-dom");
 
-var _app = _interopRequireDefault(require("./app"));
+var _app = _interopRequireDefault(require("/app"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//路由的控制由app.js文件来完成
 var rootElement = document.getElementById('app');
 (0, _reactDom.render)(_react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement(_app.default, null)), rootElement);
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","./app":"app.js"}],"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","react-router-dom":"../node_modules/react-router-dom/es/index.js","/app":"app.js"}],"../node_modules/_parcel-bundler@1.12.3@parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -35133,7 +35135,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52065" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61275" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
