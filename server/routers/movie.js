@@ -1,3 +1,5 @@
+import { ok } from 'assert';
+
 const mongoose = require('mongoose')
 const {
   controller,
@@ -21,7 +23,8 @@ export class movieController {
     } = ctx.query
     let movieList = await getAllMovies(type, year)
     ctx.body = {
-      movieList
+      movieList,
+      success: 'ok'
     }
   }
   @get('/:id')

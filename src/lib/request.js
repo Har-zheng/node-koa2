@@ -1,42 +1,50 @@
 import axios from 'axios'
-
 import { message } from 'antd'
 
-const defaultAxiosConf ={
+const defaultAxiosConf = {
   timeout: 5000
 }
-const _request =(param ={}, fn = () => {}) => {
-  return axios({...defaultAxiosConf, ...param})
-  .then(res => {
-    const { success, data, err, code } = res.data
 
-    if(code === 401) {
-      window.location.href = '/'
-      return
-    }
+const _request = (params = {}, fn = () => {}) => {
+  return axios({ ...defaultAxiosConf, ...params })
+    .then(res => {
+      const { success, data, err, code } = res.data
 
-    if(success) {
+      if (code === 401) {
+        window.location.href = '/'
+
+        return
+      }
+
+      if (success) {
+        fn(false)
+        console.log('没有错!!!')
+        console.log(data)
+        return data
+      }
+
+      throw err
+    })
+    .catch((err) => {
       fn(false)
-      return data
-    }
-    throw err
+      console.log(err)
+      console.log('报错!!!')
+      message.err(String(err || '网络错误'))
+      return '123'
+    })
 
-  }).catch(err => {
-    fn(false)
-    message.err(String(err || '网络错误'))
-  })
 }
 
 export default (param) => {
   const type = typeof param
 
-  if(type === 'function'){
+  console.log('这时的type是:', type )
+  if (type === 'function') {
     param(true)
-
     return (obj) => _request(obj, param)
   }
-  if( type === 'object' && type !== null ){
+
+  if (type === 'object' && type !== null) {
     return _request(param)
   }
-
 }
