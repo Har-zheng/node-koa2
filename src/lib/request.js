@@ -20,7 +20,7 @@ const _request = (params = {}, fn = () => {}) => {
         fn(false)
         console.log('没有错!!!')
         console.log(data)
-        return data
+        return res.data.movieList
       }
 
       throw err
