@@ -4,6 +4,8 @@ import moment from 'moment'
 import { Card, Row, Col, Badge, Modal, Spin, Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import 'moment/locale/zh-cn'
+import 'dplayer/dist/DPlayer.min.css';
+import DPlayer from 'dplayer'
 
 const site = 'http://pwvwvarwl.bkt.clouddn.com/'
 const Meta = Card.Meta
