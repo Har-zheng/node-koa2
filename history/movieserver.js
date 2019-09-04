@@ -14,7 +14,7 @@ const MIDDLEWARES = ['router']
   // require('../server/tasks/move')
   // require('../server/tasks/api')
   // require('../server/tasks/trailer')
-  require('../server/tasks/qiniu')
+  // require('../server/tasks/qiniu')
 })()
 const app = new Koa()
 
