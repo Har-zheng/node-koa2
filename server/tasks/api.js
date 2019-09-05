@@ -1,5 +1,5 @@
 //https://douban.uieee.com  /v2/movie/subject/:id 查询电影的详情 简介
-
+// 这里取到电影的详细信息
 const rp = require('request-promise-native')
 const mongoose = require('mongoose')
 

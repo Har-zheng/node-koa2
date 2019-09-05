@@ -23,14 +23,18 @@ export class movieController {
     } = ctx.query
     let movieList = await getAllMovies(type, year)
     ctx.body = {
-      movieList,
-      success: 'ok'
+      data: {
+        movieList,
+        success: 'ok'
+      },
+      success: true
     }
   }
   @get('/:id')
   async getMoviesDatel(ctx, next) {
     const id = ctx.params.id
     const movie = await getMovieDetail(id)
+    console.log(movie)
     const relativeMovies = await getRelatvieMovies(movie)
     // 26909790
     ctx.body = {

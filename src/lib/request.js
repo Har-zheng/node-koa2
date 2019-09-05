@@ -19,8 +19,8 @@ const _request = (params = {}, fn = () => {}) => {
       if (success) {
         fn(false)
         console.log('没有错!!!')
-        console.log(data)
-        return res.data.movieList
+        console.log(res)
+        return data
       }
 
       throw err

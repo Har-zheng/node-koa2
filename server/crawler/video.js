@@ -1,10 +1,9 @@
+// 爬取电影的 海报 预告片地址  等信息
 const puppeteer = require('puppeteer')
 const base = 'https://movie.douban.com/subject/'
 const sleep = time => new Promise(resolve => {
   setTimeout(resolve, time)
 })
-
-
 process.on('message', async movies => {
 
 

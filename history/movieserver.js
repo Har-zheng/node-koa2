@@ -11,10 +11,10 @@ const MIDDLEWARES = ['router']
   await connect()
   initSchemas()
   await initAdmin()
-  // require('../server/tasks/move')
-  // require('../server/tasks/api')
-  // require('../server/tasks/trailer')
-  // require('../server/tasks/qiniu')
+  // require('../server/tasks/move') // 电影的列表页
+  // require('../server/tasks/api') // 每个电影的详细信息
+  // require('../server/tasks/trailer') // 爬取电影的 海报 预告片地址
+  require('../server/tasks/qiniu') // 豆瓣信息上传 七牛云
 })()
 const app = new Koa()
 
@@ -28,7 +28,7 @@ app.use(async (ctx, next)=> {
     me: 'HongZhen'
   })
 })
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 6000
 
 app.listen(port, () => {
    console.log(`Server runing on port  ${port}`)
