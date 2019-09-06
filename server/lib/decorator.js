@@ -1,7 +1,9 @@
+import { request } from 'https';
 
 const Router = require('koa-router')
 const SymbolPrefix = Symbol('prefix') // 是函数 符号标识 返回Smble 值  有自己的静态属性和值 唯一的标识 不可修改  
 const _ = require('lodash')
+const R = require('ramda')
 const routerMap = new Map()
 const {
   resolve
@@ -62,7 +64,7 @@ export const put = path => router({
   path: path
 })
 export const del = path => router({
-  method: 'del',
+  method: 'delete',
   path: path
 })
 export const use = path => router({
@@ -72,4 +74,67 @@ export const use = path => router({
 export const all = path => router({
   method: 'all',
   path: path
+})
+const changeToArr = R.unless(
+  R.is(isArray),
+  R.of()
+)
+const decorate = (args, middleware) => {
+  let [target, key, descriptor] = args
+  target[key] = isArray(target[key])
+  target[key].unshift(middleware)
+  
+  return descriptor
+}
+const convert = middleware => (...args) => decorate(args, middleware)
+
+export const auth = convert(async (ctx, next) => {
+  if(!ctx.session.user) {
+    return (
+      ctx.body ={
+        success:false,
+        code: 401,
+        err: '登录信息失效, 重新登录'
+      }
+    )
+  }
+  await next()
+})
+export const admin = roleExpected => convert(async (ctx, next) => {
+  const { role } = ctx.session.user
+  // 权限组
+  // const rules = {
+  //   admin: [1,4,5],
+  //   superAdmin: [1,2,3,4]
+  // }
+  if(!role || role !==roleExpected) {
+    return (
+      ctx.body ={
+        success:false,
+        code: 403,
+        err: '你没有权限!'
+      }
+    )
+  }
+  await next()
+})
+// 判断权限有没有缺失  
+export const required = rules => convert(async (ctx, next) => {
+  let  errors = []
+  const checkRules = R.forEachObjIndexed(
+    (value, key) => {
+      errors = R.filter(i => !R.has(i,ctx, ctx.request[key]))(value)
+    }
+  )
+  checkRules(rules)
+
+  if(errors.length){
+    ctx.body = {
+      success: false,
+      code: 412,
+      err: `${errors.join(',')} is required`
+    }
+  } 
+
+  await next()
 })

@@ -23,13 +23,11 @@ export class movieController {
     } = ctx.query
     let movieList = await getAllMovies(type, year)
     ctx.body = {
-      data: {
-        movieList,
-        success: 'ok'
-      },
+      data: movieList,
       success: true
     }
   }
+
   @get('/:id')
   async getMoviesDatel(ctx, next) {
     const id = ctx.params.id

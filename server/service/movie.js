@@ -29,3 +29,11 @@ export const getRelatvieMovies = async  (movie) => {
 })
   return movies
 }
+// 删除
+export const findAndRemove = async  (id) => {
+  const movie = await Movie.findOne({_id: id})
+  if(movie) {
+    await movie.remove()
+  }
+  return movie
+}

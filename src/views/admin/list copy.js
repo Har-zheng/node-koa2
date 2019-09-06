@@ -1,4 +1,3 @@
-const site = 'http://pwvwvarwl.bkt.clouddn.com/'
 import React, { Component } from 'react'
 import {
   Table,
@@ -8,14 +7,17 @@ import Layout from '../../layouts/default'
 import { request } from '../../lib'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
+
 moment.locale('zh-cn')
 
-export default class AdmiinList extends Component {
+const site = 'http://peie35zt9.bkt.clouddn.com/'
+
+export default class AdminList extends Component {
   constructor (props) {
     super(props)
-    console.log('传到详情页的props是:', props)
+
     this.state = {
-      dataSource: null,
+      dataSource: [],
       loading: false,
       columns: 
       [{
@@ -96,22 +98,24 @@ export default class AdmiinList extends Component {
   componentDidMount () {
     this._getAllMovies()
   }
-  _delete=() => {
+
+  _delete = () => {
     console.log('删除')
   }
-  _toggleLoading = (status= false) => {
+
+  _toggleLoading = (status = false) => {
     this.setState({
-      loading:status
+      loading: status
     })
   }
-  _getAllMovies = () => {
 
+  _getAllMovies = () => {
     request(this._toggleLoading)({
       method: 'get',
       url: `/admin/movie/list`
     }).then(res => {
-      console.log(res)
-      this.setState({ //获取到数据,更新页面状态
+      console.log('管理页面的到的movies数据:', res )
+      this.setState({
         dataSource: res
       })
     }).catch(() => {
@@ -120,22 +124,30 @@ export default class AdmiinList extends Component {
       })
     })
   }
-  _deleteMovie(id) {
+
+  _deleteMovie = (id) => {
     request({
       method: 'delete',
       url: `/admin/movies?id=${id}`
-    }).then(()=> {
+    }).then(res => {
+      this.setState({
+        dataSource: res
+      })
+    }).catch(() => {
       this.setState({
         dataSource: []
       })
     })
   }
+
   render () {
     let { dataSource, columns } = this.state
 
     if (!dataSource || !dataSource.length) return null
+
     dataSource = dataSource.map((data, i) => {
       data.key = i
+
       return data
     })
 
@@ -143,11 +155,10 @@ export default class AdmiinList extends Component {
       <Layout {...this.props}>
         <div className='flex-row full'>
           <div className='flex-1 scroll-y align-self-start'>
-            <Table dataSource={dataSource} columns={columns}></Table>
+            <Table dataSource={dataSource} columns={columns} />
           </div>
         </div>
       </Layout>
     )
   }
 }
-

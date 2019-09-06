@@ -40,7 +40,7 @@ export default class Home extends Component {
     }).then(res => {
       console.log(res)
       this.setState({ //获取到数据,更新页面状态
-        movies: res.movieList
+        movies: res
       })
     }).catch(() => {
       this.setState({

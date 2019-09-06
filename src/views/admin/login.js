@@ -11,7 +11,7 @@ import './login.sass'
 const FormItem = Form.Item
 
 @Form.create()
-export default class Detail extends Component {
+export default class Login extends Component {
   constructor (props) {
     super(props)
     console.log('传到详情页的props是:', props)
@@ -73,7 +73,7 @@ _handleSubmit = (e) => {
             }
           </FormItem>
           <FormItem>
-            <button type="dashed" style={{ width: '100%' }} htmltype='submit'  loading={this.state.loading}>Log In</button>
+            <Button style={{ width: '100%' }} htmlType='submit'  loading={this.state.loading}>Log In</Button>
           </FormItem>
         </Form>
       </div>
