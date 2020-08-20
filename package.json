@@ -29,7 +29,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "concurrently": "^4.1.2",
     "dplayer": "^1.25.0",
     "ejs": "^2.6.2",
